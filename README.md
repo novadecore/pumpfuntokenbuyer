@@ -1,6 +1,10 @@
 # pumpfuntokenbuyer
 multi-wallet trading bot on pump.fun, design for token operators
 
+use npm run dev to start
+
+tbd: 现在直接call合约是给合约send钱，不能实际购买
+
 Idls：
 pump_swap_idl.json
 |Instruction|Type|
