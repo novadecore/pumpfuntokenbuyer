@@ -1,0 +1,49 @@
+.tradePage {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0 0 0;
+
+    .walletContainer {
+        width: 40rem;
+        background-color: antiquewhite;
+        min-height: 25rem;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .walletTitle {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .walletRow {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+
+            .walletCheckbox {
+                
+            }
+
+            .walletInput {
+                margin-left: 1rem;
+            }
+        }
+    }
+
+    .tradeContainer {
+        margin-left: 1rem;
+        width: 80rem;
+        background-color: beige;
+        height: 40rem;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        .inputRow {
+            margin: 1rem 0 1rem 0;
+        }
+    }
+}
