@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styles from '../../../styles/trade.module.scss';
 import { Button, Input, Segmented, Select, Checkbox, message, Modal } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
-import { buyTokenBySol ,generatePumpWallet} from '../../api/pump';
+import { buyTokenBySol ,generatePumpWallet,sellTokenBySol} from '../../api/pump';
 import { PumpWalletInfo } from '../../types/wallet';
 import { useWalletStore } from '../../store/walletstore';
 import WalletSelector from '../../components/WalletSelector';
@@ -82,6 +82,15 @@ export default function WalletTradePage() {
                     tokenAddress,
                 });
                 await buyTokenBySol(tokenAddress, wallet.privateKey, Number(tradeNum), wallet.apiKey);
+            }else if (tradeAction === 'sell') {
+                console.log('执行卖出交易', {
+                    wallets: wallet.walletPublicKey,
+                    action: tradeAction,
+                    coin,
+                    tradeNum,
+                    tokenAddress,
+                });
+                await sellTokenBySol(tokenAddress, wallet.walletPublicKey, 100, wallet.apiKey);
             }
         });
     }

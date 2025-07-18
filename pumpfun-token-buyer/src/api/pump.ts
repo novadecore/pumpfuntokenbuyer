@@ -15,11 +15,10 @@ const PUMP_FUN_API_ENDPOINT = process.env.PUMP_FUN_API_ENDPOINT || 'https://pump
 const connection = new Connection(RPC_ENDPOINT, 'confirmed');
 
 interface BuyPumpTokenParams {
-    publicKey: string;
     action: 'buy' | 'sell';
     mint: string;
     denominatedInSol: 'true' | 'false';
-    amount: number;
+    amount: string;
     slippage: number;
     priorityFee: number;
     pool: 'pump' | 'raydium' | 'launchlab' | 'raydium-cpmm' | 'bonk' | 'auto';
@@ -36,11 +35,10 @@ export async function buyTokenBySol(caTokeAddress: string, privateKey: string, a
     const publicKey = Keypair.fromSecretKey(bs58.decode(privateKey)).publicKey.toBase58();
 
     const body: BuyPumpTokenParams = {
-        publicKey: publicKey,
         action: 'buy',
         mint: caTokeAddress,
         denominatedInSol: 'true',
-        amount: amount,
+        amount: amount.toString(),
         slippage: 0.5,
         priorityFee: 0.00001,
         pool: 'auto'
@@ -68,6 +66,39 @@ export async function buyTokenBySol(caTokeAddress: string, privateKey: string, a
         }
 
     }catch(error) {
+        console.error('⛔ 发送交易出错:', error);
+    }
+}
+
+//sell卖出
+export async function sellTokenBySol(caTokeAddress: string, publicKey: string, amount: number, apiKey: string) {
+
+    const body: BuyPumpTokenParams = {
+        action: 'sell',
+        mint: caTokeAddress,
+        denominatedInSol: 'false',
+        amount: amount.toString() + "%",
+        slippage: 10,
+        priorityFee: 0.001,
+        pool: 'auto'
+    }
+
+    try {
+        const response = await fetch(`${PUMP_FUN_API_ENDPOINT}/api/trade?api-key=${apiKey}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            console.log('交易响应:', data);
+        } else {
+            console.error(`❌ 发送交易失败: ${response.statusText}`);
+        }
+    } catch (error) {
         console.error('⛔ 发送交易出错:', error);
     }
 }
