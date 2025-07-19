@@ -41,7 +41,7 @@ export async function buyTokenBySol(caTokeAddress: string, privateKey: string, a
         amount: amount.toString(),
         slippage: 0.5,
         priorityFee: 0.00001,
-        pool: 'auto'
+        pool: 'bonk'
     }
 
     try{
@@ -80,7 +80,7 @@ export async function sellTokenBySol(caTokeAddress: string, publicKey: string, a
         amount: amount.toString() + "%",
         slippage: 10,
         priorityFee: 0.001,
-        pool: 'auto'
+        pool: 'bonk'
     }
 
     try {
